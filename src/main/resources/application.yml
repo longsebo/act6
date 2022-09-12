@@ -1,0 +1,101 @@
+server:
+  port: 8084
+  servlet:
+   # context-path: /act6
+    context-path: /
+debug: false #设置开发及调试模式
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+  thymeleaf:
+    prefix: classpath:/templates/ #thymeleaf 所在路径
+    suffix: .html #thymeleaf 后缀
+    mode: HTML5 #thymeleaf 采用的标准
+    encoding: UTF-8 #thymeleaf 编码格式
+  http:
+    encoding:
+      charset: UTF-8
+  mvc:
+    static-path-pattern: /static/**
+    date-format: yyyy-MM-dd #时间参数的格式化
+  jackson:
+    time-zone: GMT+8 #默认为格林尼治时间，设置为北京时间
+    date-format: yyyy-MM-dd HH:mm:ss SSS #设置时间的json的格式
+  profiles:
+    include: properties,frame
+    active: loc #指定数据源
+    datasource:
+      type: com.alibaba.druid.pool.DruidDataSource
+  activiti: #activiti rest 配置
+    rest-api-enabled: true
+    rest-api-servlet-name: activiti-swagger-document
+    SpringProcessEngineConfiguration:
+      activityFontName: 宋体
+      labelFontName: 宋体
+      dataSource: datasource
+      customDefaultBpmnParseHandlers:
+        - com.activiti.handler.CustomStartEventParseHandler
+        - com.activiti.handler.ExtensionUserTaskParseHandler
+
+---
+#数据源
+spring:
+  profiles: loc
+  datasource:
+    url: jdbc:mysql://localhost:3306/activiti_demo?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: root
+    database-schema-update: true
+
+mybatis:
+  #config-locations: mybatis/mybatis-config.xml
+  mapper-locations: com/activiti/dao/*.xml
+  type-aliases-package: ActivitiDao
+  # spring boot集成mybatis的方式打印sql
+  configuration:
+      log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+---
+spring:
+  devtools:
+    restart:
+      enabled: true  #设置开启热部署
+      additional-paths: src/main/java #重启目录
+      exclude: WEB-INF/**
+  freemarker:
+    cache: false    #页面不加载缓存，修改即时生效
+
+#url 配置
+url:
+  configs:  #获取用户列表
+    - type: user  #用户
+      url:  http://localhost:8089/qb5/newRmUser/ajaxList  #url
+      method: POST #Resufl api 请求方法:get,post
+      pageNoParameterName:  RM_CURRENT_PAGE #页号参数名称
+      pageSizeParameterName: limit #页大小参数名
+      idRegExp: '"id":"(.+?)"'  #提取id正则表达式
+      nameRegExp: '"name":"(.+?)"'  #提取name正则表达式
+      successFlag:  '"status":"1"' #接口成功标识
+      messageRegExp: '"message":"(.+?)"' #提取接口消息正则表达式，通常用于提取错误消息
+      totalRecordNumRegExp: '"recordsTotal":"(.+?)"' #提取总记录数正则表达式
+    - type: role  #角色
+      url:  http://localhost:8089/qb5/rmrole2/ajaxList  #url
+      method: POST #Resufl api 请求方法:get,post
+      pageNoParameterName:  RM_CURRENT_PAGE #页号参数名称
+      pageSizeParameterName: limit #页大小参数名
+      idRegExp: '"id":"(.+?)"'  #提取id正则表达式
+      nameRegExp: '"name":"(.+?)"'  #提取name正则表达式
+      successFlag:  '"status":"1"' #接口成功标识
+      messageRegExp: '"message":"(.+?)"' #提取接口消息正则表达式，通常用于提取错误消息
+      totalRecordNumRegExp: '"recordsTotal":"(.+?)"' #提取总记录数正则表达式
+    - type: organization  #机构
+      url:  http://localhost:8089/qb5/RmPartyByHUI/ajaxList  #url
+      method: POST #Resufl api 请求方法:get,post
+      pageNoParameterName:  RM_CURRENT_PAGE #页号参数名称
+      pageSizeParameterName: limit #页大小参数名
+      idRegExp: '"id":"(.+?)"'  #提取id正则表达式
+      nameRegExp: '"name":"(.+?)"'  #提取name正则表达式
+      successFlag:  '"status":"1"' #接口成功标识
+      messageRegExp: '"message":"(.+?)"' #提取接口消息正则表达式，通常用于提取错误消息
+      totalRecordNumRegExp: '"recordsTotal":"(.+?)"' #提取总记录数正则表达式

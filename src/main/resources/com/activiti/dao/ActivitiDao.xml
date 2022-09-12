@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.activiti.dao.ActivitiDao">
+
+    <select id="getPidByMid" parameterType="string" resultType="string">
+        SELECT
+            act_re_procdef.ID_
+        FROM
+            act_re_model
+        LEFT JOIN act_re_procdef ON act_re_model.DEPLOYMENT_ID_ = act_re_procdef.DEPLOYMENT_ID_
+        WHERE
+            act_re_model.id_ = #{modelId}
+    </select>
+
+    <select id="getPidByDid" parameterType="string" resultType="string">
+        SELECT
+            act_re_procdef.ID_
+        FROM act_re_procdef
+        WHERE
+            act_re_procdef.DEPLOYMENT_ID_ = #{deploymentId}
+    </select>
+
+    <select id="getTaskNameByDPid" parameterType="string" resultType="string">
+        SELECT
+            act_ru_execution.ACT_ID_
+        FROM
+            act_ru_task
+        LEFT JOIN act_ru_execution ON act_ru_task.EXECUTION_ID_ = act_ru_execution.ID_
+        WHERE
+            act_ru_task.PROC_DEF_ID_ = #{processDefinitionId}
+    </select>
+
+    <select id="getTaskIdByPIid" parameterType="string" resultType="string">
+        SELECT
+            act_ru_task.ID_
+        FROM
+            act_ru_task
+        WHERE
+            act_ru_task.PROC_INST_ID_ = #{processDefinitionId}
+    </select>
+
+    <select id="getTaskList" resultType="com.activiti.model.ProcessInstance">
+        SELECT
+            act_ru_task.ID_ as id,
+            act_ru_task.EXECUTION_ID_ as excutionId,
+            act_ru_task.PROC_INST_ID_ as procInstId,
+            act_ru_task.PROC_DEF_ID_ as procDefId,
+            act_ru_task.NAME_ as name,
+            act_ru_task.DESCRIPTION_ as description,
+            act_ru_task.TASK_DEF_KEY_ as taskDefKey,
+            act_re_procdef.DEPLOYMENT_ID_ as deploymentId
+        FROM
+            act_ru_task left join act_re_procdef on act_ru_task.PROC_DEF_ID_ = act_re_procdef.ID_
+    </select>
+
+
+
+
+</mapper>

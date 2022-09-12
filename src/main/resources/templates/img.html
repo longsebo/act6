@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <!--<meta http-equiv="refresh" content="1">-->
+    <meta charset="UTF-8">
+    <title>流程图</title>
+    <link rel="stylesheet" href="/static/js/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <script src="/static/js/jquery-3.4.1.min.js"></script>
+    <script src="/static/js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="panel panel-default" style="margin: 10px" >
+    <div class="panel-heading">流程图</div>
+    <div class="panel-body" style="text-align: center;">
+        <img id="img" th:src="${imgUrl}" alt="" style="padding: 50px 0px;">
+    </div>
+</div>
+</body>
+<script>
+    <!--自动加载图片,需要url后面加一个随机数,url不变会自动加载缓存-->
+    var oImg = document.getElementById('img');
+    var src = oImg.src;
+    timer = setInterval(function(){
+        oImg.src = src+"&t="+Math.random();
+    },1000);
+</script>
+</html>

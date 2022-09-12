@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.activiti.dao.ActExtAPIDao">
+
+    <!-- 共享的where语句，如有冲突或特殊情况，请另写 -->
+    <sql id="where">
+        <trim prefix="where" prefixOverrides="and|or">
+            
+            <if test="serviceName != null and serviceName != ''">
+                and ACT_EXT_API.SERVICE_NAME = #{serviceName}
+            </if>
+            <if test="method != null and method != ''">
+                and ACT_EXT_API.METHOD = #{method}
+            </if>
+            <if test="commitService != null and commitService != ''">
+                and ACT_EXT_API.COMMIT_SERVICE = #{commitService}
+            </if>
+            <if test="contentEncode != null and contentEncode != ''">
+                and ACT_EXT_API.CONTENT_ENCODE = #{contentEncode}
+            </if>
+            <if test="requestParameterFormat != null and requestParameterFormat != ''">
+                and ACT_EXT_API.REQUEST_PARAMETER_FORMAT = #{requestParameterFormat}
+            </if>
+            <if test="requestParameterSet != null and requestParameterSet != ''">
+                and ifnull(ACT_EXT_API.REQUEST_PARAMETER_SET,'0') = #{requestParameterSet}
+            </if>
+
+            <if test="bodyData != null and bodyData != ''">
+                and ACT_EXT_API.BODY_DATA = #{bodyData}
+            </if>
+            <if test="contentType != null and contentType != ''">
+                and ACT_EXT_API.CONTENT_TYPE = #{contentType}
+            </if>
+            <if test="respondTestField != null and respondTestField != ''">
+                and ACT_EXT_API.RESPOND_TEST_FIELD = #{respondTestField}
+            </if>
+            <if test="correctAnswerMatches != null and correctAnswerMatches != ''">
+                and ACT_EXT_API.CORRECT_ANSWER_MATCHES = #{correctAnswerMatches}
+            </if>
+            <if test="businesskeyRegExp != null and businesskeyRegExp != ''">
+                and ACT_EXT_API.BUSINESSKEY_REG_EXP = #{businesskeyRegExp}
+            </if>
+            <if test="respondMessageRegExp != null and respondMessageRegExp != ''">
+                and ACT_EXT_API.RESPOND_MESSAGE_REG_EXP = #{respondMessageRegExp}
+            </if>
+            <if test="requestHeadSet != null and requestHeadSet != ''">
+                and ACT_EXT_API.REQUEST_HEAD_SET = #{requestHeadSet}
+            </if>
+            <if test="isUse != null and isUse != ''">
+                and ACT_EXT_API.IS_USE = #{isUse}
+            </if>
+            <if test="remarker != null and remarker != ''">
+                and ACT_EXT_API.REMARKER = #{remarker}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                and ACT_EXT_API.CREATE_TIME = #{createTime}
+            </if>
+
+
+        </trim>
+    </sql>
+
+    <insert id="insert" parameterType="com.activiti.model.ActExtAPIVo">
+    insert into ACT_EXT_API (
+      SERVICE_NAME, METHOD, COMMIT_SERVICE, CONTENT_ENCODE, REQUEST_PARAMETER_FORMAT, REQUEST_PARAMETER_SET, BODY_DATA, CONTENT_TYPE, RESPOND_TEST_FIELD, CORRECT_ANSWER_MATCHES, BUSINESSKEY_REG_EXP, RESPOND_MESSAGE_REG_EXP, REQUEST_HEAD_SET, IS_USE, REMARKER, CREATE_TIME
+      )
+    values (
+    #{serviceName,jdbcType=CHAR},
+	#{method,jdbcType=VARCHAR},
+	#{commitService,jdbcType=VARCHAR},
+	#{contentEncode,jdbcType=VARCHAR},
+	#{requestParameterFormat,jdbcType=VARCHAR},
+	#{requestParameterSet},#{bodyData},#{contentType,jdbcType=VARCHAR},
+    #{respondTestField,jdbcType=VARCHAR},#{correctAnswerMatches,jdbcType=VARCHAR},
+	#{businesskeyRegExp,jdbcType=VARCHAR},#{respondMessageRegExp,jdbcType=VARCHAR},#{requestHeadSet},
+	#{isUse,jdbcType=CHAR},#{remarker,jdbcType=VARCHAR},
+	#{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+
+    <delete id="delete" parameterType="string">
+      delete from ACT_EXT_API where SERVICE_NAME=#{name}
+  </delete>
+    <update id="update" parameterType="com.activiti.model.ActExtAPIVo">
+        update ACT_EXT_API
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="serviceName!=null and serviceName!= ''">
+                SERVICE_NAME=#{serviceName,jdbcType=CHAR},
+            </if>
+            <if test="method!=null and method!= ''">
+                METHOD=#{method,jdbcType=VARCHAR},
+            </if>
+            <if test="commitService!=null and commitService!= ''">
+                COMMIT_SERVICE=#{commitService,jdbcType=VARCHAR},
+            </if>
+            <if test="contentEncode!=null and contentEncode!= ''">
+                CONTENT_ENCODE=#{contentEncode,jdbcType=VARCHAR},
+            </if>
+            <if test="requestParameterFormat!=null and requestParameterFormat!= ''">
+                REQUEST_PARAMETER_FORMAT=#{requestParameterFormat,jdbcType=VARCHAR},
+            </if>
+            <if test="requestParameterSet != null and requestParameterSet != ''">
+                REQUEST_PARAMETER_SET=#{requestParameterSet},
+            </if>
+            <if test="bodyData != null and bodyData != ''">
+                BODY_DATA=#{bodyData},
+            </if>
+            <if test="contentType != null and contentType != ''">
+                CONTENT_TYPE=#{contentType,jdbcType=VARCHAR},
+            </if>
+            <if test="respondTestField != null and respondTestField != ''">
+                RESPOND_TEST_FIELD=#{respondTestField,jdbcType=VARCHAR},
+            </if>
+            <if test="correctAnswerMatches != null and correctAnswerMatches != ''">
+                CORRECT_ANSWER_MATCHES=#{correctAnswerMatches,jdbcType=VARCHAR},
+            </if>
+            <if test="businesskeyRegExp != null and businesskeyRegExp != ''">
+                BUSINESSKEY_REG_EXP=#{businesskeyRegExp,jdbcType=VARCHAR},
+            </if>
+            <if test="respondMessageRegExp != null and respondMessageRegExp != ''">
+                RESPOND_MESSAGE_REG_EXP=#{respondMessageRegExp,jdbcType=VARCHAR},
+            </if>
+            <if test="requestHeadSet != null and requestHeadSet != ''">
+                REQUEST_HEAD_SET=#{requestHeadSet},
+            </if>
+            <if test="isUse != null and isUse != ''">
+                IS_USE=#{isUse,jdbcType=VARCHAR},
+            </if>
+            <if test="remarker != null and remarker != ''">
+                REMARKER=#{remarker,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null and createTime != ''">
+                CREATE_TIME=#{createTime,jdbcType=TIMESTAMP},
+            </if>
+
+        </trim>
+        where SERVICE_NAME=#{oldServiceName}
+    </update>
+
+    <select id="get" parameterType="string" resultType="com.activiti.model.ActExtAPIVo">
+    select
+  SERVICE_NAME as serviceName, METHOD as method, COMMIT_SERVICE as commitService, CONTENT_ENCODE as contentEncode,
+   REQUEST_PARAMETER_FORMAT as requestParameterFormat, REQUEST_PARAMETER_SET as requestParameterSet, BODY_DATA as bodyData, CONTENT_TYPE  as contentType,
+   RESPOND_TEST_FIELD as respondTestField, CORRECT_ANSWER_MATCHES as correctAnswerMatches, BUSINESSKEY_REG_EXP as businesskeyRegExp, RESPOND_MESSAGE_REG_EXP as respondMessageRegExp,
+    REQUEST_HEAD_SET as requestHeadSet, IS_USE as isUse, REMARKER as remarker, CREATE_TIME as createTime
+    from ACT_EXT_API
+    where ACT_EXT_API.SERVICE_NAME=#{serviceName}
+  </select>
+
+    <select id="getCount" parameterType="map" resultType="int" useCache="true">
+        select count(1) from ACT_EXT_API
+        <include refid="where"/>
+    </select>
+
+
+
+    <select id="search" resultType="com.activiti.model.ActExtAPIVo">
+        select
+  SERVICE_NAME as serviceName, METHOD as method, COMMIT_SERVICE as commitService, CONTENT_ENCODE as contentEncode,
+   REQUEST_PARAMETER_FORMAT as requestParameterFormat, REQUEST_PARAMETER_SET as requestParameterSet, BODY_DATA as bodyData, CONTENT_TYPE  as contentType,
+   RESPOND_TEST_FIELD as respondTestField, CORRECT_ANSWER_MATCHES as correctAnswerMatches, BUSINESSKEY_REG_EXP as businesskeyRegExp, RESPOND_MESSAGE_REG_EXP as respondMessageRegExp,
+    REQUEST_HEAD_SET as requestHeadSet, IS_USE as isUse, REMARKER as remarker, CREATE_TIME as createTime
+        FROM
+            ACT_EXT_API
+        <include refid="where"/>
+        <if test="orderStr != null and orderStr != ''">
+            order by ${orderStr}
+        </if>
+        <if test="startIndex != null  and size!=null and size!=0">
+            limit ${startIndex},${size}
+        </if>
+
+    </select>
+
+
+
+
+</mapper>

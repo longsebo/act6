@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>工作流模型列表</title>
+    <link rel="stylesheet" href="/static/js/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <script src="/static/js/jquery-3.4.1.min.js"></script>
+    <script src="/static/js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="panel panel-default" style="margin: 10px" >
+    <div class="panel-heading">工作流管理</div>
+    <div class="panel-body">
+        <a href="/create" target="_blank">
+            <button type="button" class="btn btn-default" aria-label="Left Align">
+                创建模型
+            </button>
+        </a>
+    </div>
+    <div class="panel-heading">已创建流程</div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th width="10%">模型编号</th>
+            <th width="10%">版本</th>
+            <th width="20%">模型key</th>
+            <th width="30%">模型名称</th>
+            <th width="20%">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="actModel,actStat:${actList}">
+            <th scope="row" th:text="${actModel.id}"></th>
+            <td th:text="${actModel.version}"></td>
+            <td th:text="${actModel.key}"></td>
+            <td th:text="${actModel.name}"></td>
+            <td>
+                <a th:href="@{'/publish?modelId='+${actModel.id}}" >部署</a>
+                <!--<a th:href="@{'/revokePublish?modelId='+${actModel.id}}">撤销</a>-->
+                <a th:href="@{'/editor?modelId='+${actModel.id}}">编辑</a>
+                <!--<a th:href="@{'/getFlowImgByDid?modelId='+${actModel.id}}" target="_blank">流程图</a>-->
+                <a th:href="@{'/delete?modelId='+${actModel.id}}">删除</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <div class="panel-heading">已部署流程</div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th width="10%">部署编号</th>
+            <th width="10%">版本</th>
+            <th width="20%">部署key</th>
+            <th width="30%">部署id</th>
+            <th width="20%">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="actModel,actStat:${pdList}">
+            <th scope="row" th:text="${actModel.id}"></th>
+            <td th:text="${actModel.version}"></td>
+            <td th:text="${actModel.key}"></td>
+            <td th:text="${actModel.deploymentId}"></td>
+            <td>
+                <a th:href="@{'/startByPDKey?processDefinitionKey='+${actModel.id}}" >开始</a>
+                <a th:href="@{'/deleteByDid?deploymentId='+${actModel.deploymentId}}">删除</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <div class="panel-heading">已开始流程</div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th width="10%">流程编号</th>
+            <th width="10%">部署编号</th>
+            <th width="20%">执行节点</th>
+            <th width="30%">描述</th>
+            <!--<th width="30%">流程图</th>-->
+            <th width="20%">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="actModel,actStat:${piList}">
+            <th scope="row" th:text="${actModel.id}"></th>
+            <td th:text="${actModel.procDefId}"></td>
+            <td th:text="${actModel.name}"></td>
+            <td th:text="${actModel.description}"></td>
+            <!--<td><img th:src="@{'/getFlowImgByDid2?deploymentId='+${actModel.procInstId}}" alt=""></td>-->
+            <td>
+                <a th:href="@{'/complete?taskId='+${actModel.id}}" >执行</a>
+                <a th:href="@{'/unclaim?taskId='+${actModel.id}}" >取消</a>
+                <a th:href="@{'/img?imgUrl='+${actModel.procInstId}}" target="_blank">流程图</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
