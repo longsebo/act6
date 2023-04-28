@@ -19,7 +19,7 @@
         <activiti.version>6.0.0</activiti.version>
         <xmlgraphics.version>1.7</xmlgraphics.version>
         <druid.version>1.1.10</druid.version>
-        <mysqlconnector.version>5.1.44</mysqlconnector.version>
+        <mysqlconnector.version>8.0.21</mysqlconnector.version>
         <fastjson.version>1.2.68</fastjson.version>
     </properties>
 
@@ -161,11 +161,11 @@
             <optional>true</optional>
         </dependency>
         <!-- 导入配置文件处理器，配置文件进行绑定就会有提示-->
-        <dependency>
+       <!-- <dependency>
             <groupId>com.l</groupId>
             <artifactId>oauth2-client-starter</artifactId>
             <version>1.0</version>
-        </dependency>
+        </dependency> -->
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>

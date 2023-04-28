@@ -43,9 +43,9 @@ spring:
 spring:
   profiles: loc
   datasource:
-    url: jdbc:mysql://localhost:3306/activiti_demo?useUnicode=true&characterEncoding=utf-8&useSSL=false
-    username: root
-    password: root
+    url: jdbc:mysql://localhost:3306/activiti_demo?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC&nullCatalogMeansCurrent=true
+    username: act6
+    password: act61234
     database-schema-update: true
 
 mybatis:
